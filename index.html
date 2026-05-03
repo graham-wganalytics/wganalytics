@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WG Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+
+:root {
+  --navy:   #0f1e2e;
+  --ink:    #162333;
+  --slate:  #2a4560;
+  --steel:  #3d6080;
+  --sky:    #5b9ec9;
+  --ice:    #a8d0e8;
+  --accent: #e8a838;
+  --light:  #f4f8fb;
+  --white:  #ffffff;
+  --text:   #1a2e40;
+  --muted:  #5a7a90;
+  --serif:  'DM Serif Display', Georgia, serif;
+  --sans:   'DM Sans', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  color: var(--text);
+  background: var(--white);
+  line-height: 1.65;
+  font-size: 16px;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 64px;
+  background: rgba(15, 30, 46, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(91,158,201,0.15);
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  color: var(--white);
+  letter-spacing: 0.02em;
+}
+.nav-logo span { color: var(--accent); }
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--ice);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--accent); }
+@media (max-width: 600px) { .nav-links { display: none; } }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--navy);
+}
+
+/* SVG data-grid background */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+}
+.hero-gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 60% 50%, rgba(91,158,201,0.25) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(232,168,56,0.12) 0%, transparent 60%),
+    linear-gradient(160deg, #0f1e2e 0%, #162333 100%);
+}
+
+/* animated dots */
+.dots {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.dot {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--sky);
+  opacity: 0;
+  animation: pulse-dot 4s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%   { opacity: 0; transform: scale(0.5); }
+  50%  { opacity: 0.4; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.5); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  padding: 6rem 2rem 4rem;
+  margin: 0 auto;
+  text-align: center;
+  animation: fadeUp 0.9s ease both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+  padding: 0.35rem 1rem;
+  border: 1px solid rgba(232,168,56,0.35);
+  border-radius: 2rem;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 6vw, 4.2rem);
+  color: var(--white);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--sky);
+}
+.hero-sub {
+  font-size: clamp(1rem, 2.2vw, 1.175rem);
+  color: var(--ice);
+  font-weight: 300;
+  max-width: 580px;
+  margin: 0 auto 2.25rem;
+}
+.hero-cta {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--navy);
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  padding: 0.85rem 2.2rem;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.hero-cta:hover { background: #f0b84a; transform: translateY(-2px); }
+
+/* data-line decoration */
+.hero-line {
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 80px;
+  background: linear-gradient(to bottom, rgba(91,158,201,0.5), transparent);
+}
+
+/* ── SECTION SHARED ── */
+section { padding: 5rem 1.5rem; }
+.section-inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--sky);
+  margin-bottom: 0.75rem;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  color: var(--navy);
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+.divider {
+  width: 48px;
+  height: 3px;
+  background: var(--accent);
+  margin-bottom: 2rem;
+  border-radius: 2px;
+}
+
+/* ── ABOUT ── */
+.about { background: var(--light); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.about-text p {
+  color: #3a5570;
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.stat-card {
+  background: var(--white);
+  border: 1px solid rgba(91,158,201,0.2);
+  border-radius: 6px;
+  padding: 1.5rem;
+  border-top: 3px solid var(--sky);
+}
+.stat-card .number {
+  font-family: var(--serif);
+  font-size: 2rem;
+  color: var(--navy);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+.stat-card .label {
+  font-size: 0.82rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+@media (max-width: 720px) {
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+/* ── SERVICES ── */
+.services { background: var(--white); }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+.service-card {
+  border: 1px solid #dde8f0;
+  border-radius: 6px;
+  padding: 2rem 1.75rem;
+  transition: box-shadow 0.2s, transform 0.2s;
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--sky);
+  transition: background 0.2s;
+}
+.service-card:hover {
+  box-shadow: 0 8px 32px rgba(15,30,46,0.1);
+  transform: translateY(-3px);
+}
+.service-card:hover::before { background: var(--accent); }
+.service-icon {
+  width: 42px; height: 42px;
+  background: var(--light);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.1rem;
+  font-size: 1.25rem;
+}
+.service-card h3 {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  color: var(--navy);
+  margin-bottom: 0.75rem;
+}
+.service-card ul {
+  list-style: none;
+  padding: 0;
+}
+.service-card ul li {
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding: 0.3rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.service-card ul li::before {
+  content: '→';
+  color: var(--sky);
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+.service-note {
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+  text-align: center;
+  font-style: italic;
+}
+
+/* ── CONTACT ── */
+.contact { background: var(--navy); }
+.contact .section-title { color: var(--white); }
+.contact .section-label { color: var(--accent); }
+.contact-sub {
+  color: var(--ice);
+  font-size: 1rem;
+  margin-bottom: 2.5rem;
+  max-width: 520px;
+}
+.contact-form {
+  max-width: 600px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.form-group.full { grid-column: 1 / -1; }
+label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ice);
+}
+input, textarea, select {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(91,158,201,0.25);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  transition: border-color 0.2s, background 0.2s;
+  outline: none;
+}
+input::placeholder, textarea::placeholder { color: rgba(168,208,232,0.4); }
+input:focus, textarea:focus, select:focus {
+  border-color: var(--sky);
+  background: rgba(255,255,255,0.1);
+}
+textarea { resize: vertical; min-height: 120px; }
+select option { background: var(--navy); color: var(--white); }
+.submit-btn {
+  grid-column: 1 / -1;
+  background: var(--accent);
+  color: var(--navy);
+  border: none;
+  border-radius: 4px;
+  padding: 0.9rem 2rem;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  text-transform: uppercase;
+}
+.submit-btn:hover { background: #f0b84a; transform: translateY(-1px); }
+.form-success {
+  display: none;
+  color: var(--ice);
+  font-size: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(91,158,201,0.3);
+  border-radius: 4px;
+  background: rgba(91,158,201,0.1);
+}
+@media (max-width: 560px) {
+  .contact-form { grid-template-columns: 1fr; }
+  .form-group.full { grid-column: 1; }
+  .submit-btn { grid-column: 1; }
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink);
+  border-top: 1px solid rgba(91,158,201,0.1);
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+footer p {
+  font-size: 0.82rem;
+  color: rgba(168,208,232,0.5);
+  letter-spacing: 0.04em;
+}
+footer strong { color: var(--ice); font-weight: 500; }
+
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+
+  <nav>
+    <div class="nav-logo">WG <span>Analytics</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero">
+    <div class="hero-gradient"></div>
+
+
+<!-- SVG grid / data viz background -->
+<svg class="hero-bg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <!-- grid lines -->
+  <g stroke="#5b9ec9" stroke-width="0.5">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="150" y1="0" x2="150" y2="700"/>
+    <line x1="300" y1="0" x2="300" y2="700"/>
+    <line x1="450" y1="0" x2="450" y2="700"/>
+    <line x1="600" y1="0" x2="600" y2="700"/>
+    <line x1="750" y1="0" x2="750" y2="700"/>
+    <line x1="900" y1="0" x2="900" y2="700"/>
+    <line x1="1050" y1="0" x2="1050" y2="700"/>
+  </g>
+  <!-- bar chart right side -->
+  <g fill="#5b9ec9" opacity="0.6">
+    <rect x="840" y="380" width="40" height="220"/>
+    <rect x="900" y="300" width="40" height="300"/>
+    <rect x="960" y="240" width="40" height="360"/>
+    <rect x="1020" y="160" width="40" height="440"/>
+    <rect x="1080" y="200" width="40" height="400"/>
+    <rect x="1140" y="120" width="40" height="480"/>
+  </g>
+  <!-- line chart -->
+  <polyline points="0,550 120,480 240,510 360,400 480,350 600,280 720,220 840,180 960,120 1080,90 1200,60"
+    fill="none" stroke="#e8a838" stroke-width="2" opacity="0.7"/>
+  <polyline points="0,600 120,560 240,580 360,520 480,500 600,460 720,420 840,380 960,340 1080,300 1200,260"
+    fill="none" stroke="#5b9ec9" stroke-width="1.5" opacity="0.5"/>
+  <!-- node dots on line -->
+  <g fill="#e8a838" opacity="0.8">
+    <circle cx="120" cy="480" r="4"/>
+    <circle cx="360" cy="400" r="4"/>
+    <circle cx="600" cy="280" r="4"/>
+    <circle cx="840" cy="180" r="4"/>
+    <circle cx="1080" cy="90" r="4"/>
+  </g>
+</svg>
+
+<!-- animated dots -->
+<div class="dots">
+  <div class="dot" style="width:6px;height:6px;top:20%;left:15%;animation-delay:0s;"></div>
+  <div class="dot" style="width:4px;height:4px;top:65%;left:30%;animation-delay:1s;"></div>
+  <div class="dot" style="width:8px;height:8px;top:40%;left:75%;animation-delay:2s;"></div>
+  <div class="dot" style="width:5px;height:5px;top:75%;left:60%;animation-delay:0.5s;"></div>
+  <div class="dot" style="width:4px;height:4px;top:30%;left:85%;animation-delay:1.5s;"></div>
+  <div class="dot" style="width:6px;height:6px;top:80%;left:10%;animation-delay:3s;"></div>
+</div>
+
+<div class="hero-content">
+  <span class="hero-eyebrow">Data Consulting for Growing Businesses</span>
+  <h1>WG <em>Analytics</em></h1>
+  <p class="hero-sub">Specializing in business intelligence, data engineering, and systems design for small to mid-size businesses ready to scale smarter.</p>
+  <a href="#contact" class="hero-cta">Get in Touch</a>
+</div>
+<div class="hero-line"></div>
+
+
+  </section>
+
+  <!-- ABOUT -->
+
+  <section class="about" id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="section-label">Who We Are</p>
+          <h2 class="section-title">Built for lean teams. Designed to scale.</h2>
+          <div class="divider"></div>
+          <p>Whether you're a one-person shop, scaling from 0 to 10 employees, or pushing past 10 to 100, WG Analytics is here to help you build the data infrastructure your business needs to grow — without spending your time building systems or reports yourself.</p>
+          <br/>
+          <p>We specialize in working with lean teams that don't have a full dedicated IT group. Think of us as your on-demand data team: we come in, build the right systems, and leave you with the tools and visibility to run confidently.</p>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card">
+            <div class="number">BI</div>
+            <div class="label">Dashboards & Reporting</div>
+          </div>
+          <div class="stat-card">
+            <div class="number">DE</div>
+            <div class="label">Data Engineering & Pipelines</div>
+          </div>
+          <div class="stat-card">
+            <div class="number">SD</div>
+            <div class="label">Systems Design & Architecture</div>
+          </div>
+          <div class="stat-card">
+            <div class="number">Ops</div>
+            <div class="label">Business Operations Tooling</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+
+  <section class="services" id="services">
+    <div class="section-inner">
+      <p class="section-label">What We Do</p>
+      <h2 class="section-title">Our Services &amp; Platforms</h2>
+      <div class="divider"></div>
+
+
+  <div class="services-grid">
+
+    <div class="service-card">
+      <div class="service-icon">📊</div>
+      <h3>BI Platforms</h3>
+      <ul>
+        <li>Power BI — enterprise-grade dashboards and reporting</li>
+        <li>Metabase — fast, intuitive analytics for your whole team</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">⚙️</div>
+      <h3>Business Ops</h3>
+      <ul>
+        <li>Airtable — flexible databases and workflow automation</li>
+        <li>Smartsheet — project tracking and operational management</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">💻</div>
+      <h3>Languages</h3>
+      <ul>
+        <li>SQL — data queries, transformations, and modeling</li>
+        <li>Python — scripting, automation, and data pipelines</li>
+      </ul>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🌐</div>
+      <h3>Custom Web Apps</h3>
+      <ul>
+        <li>React — custom internal tools and client-facing apps</li>
+        <li>AWS — cloud infrastructure setup and support</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <p class="service-note">Working with a different platform? <a href="#contact" style="color:var(--sky);text-decoration:none;">Reach out</a> — we're happy to discuss other tools and technologies.</p>
+</div>
+
+
+  </section>
+
+  <!-- CONTACT -->
+
+  <section class="contact" id="contact">
+    <div class="section-inner">
+      <p class="section-label">Get in Touch</p>
+      <h2 class="section-title">Let's Talk About Your Data</h2>
+      <p class="contact-sub">Tell us where you are and where you want to go. We'll help you figure out what it takes to get there.</p>
+
+
+  <form class="contact-form" id="contactForm" action="https://formspree.io/f/xkokdqdn" method="POST" onsubmit="handleSubmit(event)">
+    <div class="form-group">
+      <label for="fname">First Name</label>
+      <input type="text" id="fname" name="first_name" placeholder="Jane" required />
+    </div>
+    <div class="form-group">
+      <label for="lname">Last Name</label>
+      <input type="text" id="lname" name="last_name" placeholder="Smith" required />
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="jane@company.com" required />
+    </div>
+    <div class="form-group">
+      <label for="company">Company</label>
+      <input type="text" id="company" name="company" placeholder="Your Company" />
+    </div>
+    <div class="form-group full">
+      <label for="interest">Area of Interest</label>
+      <select id="interest" name="interest">
+        <option value="" disabled selected>Select a service area...</option>
+        <option>Business Intelligence (Power BI / Metabase)</option>
+        <option>Business Ops (Airtable / Smartsheet)</option>
+        <option>Data Engineering (SQL / Python)</option>
+        <option>Custom Web App (React)</option>
+        <option>AWS Cloud Infrastructure</option>
+        <option>General Inquiry / Other Platform</option>
+      </select>
+    </div>
+    <div class="form-group full">
+      <label for="message">Tell Us About Your Needs</label>
+      <textarea id="message" name="message" placeholder="Briefly describe your current situation and what you're hoping to accomplish..."></textarea>
+    </div>
+    <button type="submit" class="submit-btn">Send Message</button>
+  </form>
+  <div class="form-success" id="formSuccess">
+    ✓ &nbsp;Thanks for reaching out! We'll be in touch shortly.
+  </div>
+</div>
+
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+    <p>&copy; 2025 <strong>WG Analytics</strong> &nbsp;·&nbsp; Business Intelligence &nbsp;·&nbsp; Data Engineering &nbsp;·&nbsp; Systems Design</p>
+  </footer>
+
+  <script>
+    async function handleSubmit(e) {
+      e.preventDefault();
+      const form = document.getElementById('contactForm');
+      const btn = form.querySelector('.submit-btn');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          document.getElementById('formSuccess').style.display = 'block';
+        } else {
+          btn.textContent = 'Something went wrong — try again';
+          btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = 'Something went wrong — try again';
+        btn.disabled = false;
+      }
+    }
+  </script>
+
+</body>
+</html>
